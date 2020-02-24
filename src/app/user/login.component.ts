@@ -19,10 +19,9 @@ export class LoginComponent {
     if (loginForm && loginForm.valid) {
       const userName = loginForm.form.value.userName;
       const password = loginForm.form.value.password;
-      this.authService.login1(userName, password) .pipe(first())
+      this.authService.login(userName, password) .pipe(first())
       .subscribe(
         data => {
-          console.log(data);
           if (this.authService.redirectUrl) {
             this.router.navigateByUrl(this.authService.redirectUrl);
           } else {
@@ -30,8 +29,7 @@ export class LoginComponent {
           }
         },
         error => {
-          console.log(error);
-            this.errorMessage = error.status + ' ' + error.statusText;
+            this.errorMessage = 'Username or password is incorrect';
         });;
 
       // Navigate to the Product List page after log in.

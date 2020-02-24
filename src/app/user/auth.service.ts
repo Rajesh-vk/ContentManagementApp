@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { User } from '../Model/User';
 import { map } from 'rxjs/internal/operators/map';
-import { HttpClient } from '@angular/common/http';
- import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -21,30 +21,10 @@ export class AuthService {
 
   constructor(private httpUrl: HttpClient) { }
 
-  login(userNameLoged: string, password: string): void {
-    if (!userNameLoged || !password) {
-      return;
-    }
-    // if (userNameLoged === 'admin') {
-    //   this.currentUser = {
-    //     id: 1,
-    //     userName: userNameLoged,
-    //     isAdmin: true
-    //   };
-    //   return;
-    // }
-    // this.currentUser = {
-    //   id: 2,
-    //   userName: userNameLoged,
-    //   isAdmin: false
-    // };
-  }
 
-  logout(): void {
-    this.currentUser = null;
-  }
-  login1(username: string, password: string) {
-    return this.httpUrl.post<any>(this.loginUrl, { body:{ Username: username, Password: password } })
+  login(username: string, password: string) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpUrl.post<any>(this.loginUrl, { Username: username, Password: password }, { headers })
         .pipe(map(user => {
             // login successful if there's a jwt token in the response
             if (user && user.token) {
@@ -55,7 +35,7 @@ export class AuthService {
         }));
 }
 
-logout1() {
+logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
 }
