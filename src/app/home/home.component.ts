@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
 import { Subject, EMPTY } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
+import { EventService } from '../events/event.service';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,7 @@ export class HomeComponent implements OnInit {
         return EMPTY;
       })
     );
-constructor(private homeService: HomeService) { }
+constructor(private homeService: EventService) { }
 
 ngOnInit() {
   }

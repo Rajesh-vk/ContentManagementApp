@@ -3,13 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, combineLatest, EMPTY, from, merge, Subject, throwError, of, Observable } from 'rxjs';
 import { catchError, filter, map, mergeMap, scan, shareReplay, tap, toArray, switchMap } from 'rxjs/operators';
 import { EventSummary } from '../Model/eventSummay';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  private eventsSummaryUrl = 'api/eventSummarys';
+  private eventsSummaryUrl = environment.eventApiUrl;
 
   eventsSummary$ = this.httpUrl.get<EventSummary[]>(this.eventsSummaryUrl)
     .pipe(
@@ -53,26 +54,15 @@ export class EventService {
     // Return an initialized object
     return {
             id: '0',
-            month: null,
             baseLocation: null,
             beneficiaryName: null,
             venueAddress: null,
-            councilName: null,
-            project: null,
-            category: null,
             eventName: null,
             eventDescription: null,
-            eventDate: null,
             totalNoVolunteers: null,
             totalVolunteHours: null,
             totalTravelHours: null,
-            overallVolunteeringHours: null,
             livesImpacted: null,
-            activityType: null,
-            status: null,
-            pocID: null,
-            pocName: null,
-            pocContactNumber: null,
     };
   }
 
