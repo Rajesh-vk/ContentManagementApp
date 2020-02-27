@@ -9,6 +9,7 @@
   <form novalidate
         (ngSubmit)="login(loginForm)"
         #loginForm="ngForm"
+        [mustMatch]="['password', 'confirmPassword']"
         autocomplete="off">
     <fieldset>
 
@@ -52,6 +53,33 @@
               Password is required.
             </span>
           </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form--label"
+               for="confirmpasswordId">Confirm Password</label>
+
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="confirmpasswordId"
+                 type="password"
+                 placeholder="Password (required)"
+                 required
+                 ngModel
+                 name="confirmpassword"
+                 #confirmpasswordId="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && confirmPassword.invalid }" />
+          <!-- <span class="invalid-feedback"> -->
+            <!-- <span *ngIf="repasswordVar.errors?.required">
+              Password is required.
+            </span> -->
+
+            <span *ngIf="f.submitted && confirmPassword.invalid" class="invalid-feedback">
+              <span *ngIf="confirmPassword.errors.required">Confirm Password is required</span>
+              <span *ngIf="confirmPassword.errors.mustMatch">Passwords must match</span>
+          </span>
+          <!-- </span> -->
         </div>
       </div>
 
