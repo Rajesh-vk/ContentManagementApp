@@ -85,7 +85,7 @@ export class EventService {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     console.log(id);
     const url = `${this.eventsSummaryUrl}/${id}`;
-    return this.httpUrl.delete<EventSummary>(url)
+    return this.httpUrl.post<any>(url,{})
       .pipe(
         tap(data => console.log('deleteEventSummary: ' + id)),
         catchError(this.handleError)
