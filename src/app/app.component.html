@@ -51,11 +51,14 @@
                 <span></span>
                 <span></span>
             </button>
-            <!-- <div class="row" *ngIf="isLoggedIn"> -->
-              
-              <!-- <div col-md-6><i  style='font-size:24px' class="fa fa-user" aria-hidden="true"></i></div> -->
-              <!-- <div col-md-6 style="padding-right: 25px"><h6><i class="fa fa-user-right"></i>Welcome {{ userName }}</h6></div> -->
-          <!-- </div> -->
+            <ul class="navbar-nav">
+            <li class="nav-item" *ngIf="!isLoggedIn">
+              <a class="nav-link"
+                 [routerLink]="['/report']"
+                 routerLinkActive="active"><i style='font-size:24px' class="fa fa-user"></i> Register
+                </a>
+            </li>
+          </ul>
           <a *ngIf="isLoggedIn"><i style='font-size:24px' class="fa fa-user"></i> Welcome {{ userName }}</a>
             
         </div>

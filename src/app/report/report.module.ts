@@ -11,7 +11,6 @@ import { ReportComponent } from './report.component';
         {
             path: 'report',
             component: ReportComponent,
-            canActivate: [AuthGuard]
          },
     ])
   ],

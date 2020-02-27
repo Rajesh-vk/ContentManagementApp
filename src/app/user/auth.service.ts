@@ -17,6 +17,12 @@ export class AuthService {
     return !!localStorage.getItem('currentUser');
   }
 
+  get LoggedUser(): string {
+
+    const username = JSON.parse(localStorage.getItem('currentUser'));
+    return username.username;
+  }
+
   private loginUrl = environment.authApiUrl;
 
   constructor(private httpUrl: HttpClient) { }

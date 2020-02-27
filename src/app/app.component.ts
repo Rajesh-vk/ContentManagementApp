@@ -20,8 +20,8 @@ export class AppComponent {
   }
 
    get userName(): string {
-    if (this.authService.currentUser) {
-      return this.authService.currentUser.userName;
+    if (this.authService.LoggedUser) {
+      return this.authService.LoggedUser;
     }
     return '';
   }
