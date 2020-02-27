@@ -11,9 +11,13 @@ import { environment } from 'src/environments/environment';
 export class EventService {
 
   private eventsSummaryUrl = environment.eventApiUrl;
+  eventCount = 0;
 
   eventsSummary$ = this.httpUrl.get<EventSummary[]>(this.eventsSummaryUrl)
     .pipe(
+      tap(data => {
+        this.eventCount = data.length + 1;
+      }),
       catchError(this.handleError),
       // shareReplay(1)
     );
@@ -68,7 +72,8 @@ export class EventService {
 
   createEventSummary(eventSummary: EventSummary): Observable<EventSummary> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    eventSummary.id = null;
+    const d: Date = new Date()
+    eventSummary.id = 'Evnt2020' +  d.getTime().toString();
     return this.httpUrl.post<EventSummary>(this.eventsSummaryUrl, eventSummary, { headers })
       .pipe(
         tap(data => console.log('createEventSummary: ' + JSON.stringify(data))),
@@ -77,9 +82,10 @@ export class EventService {
   }
 
   deleteEventSummary(id: string): Observable<{}> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    console.log(id);
     const url = `${this.eventsSummaryUrl}/${id}`;
-    return this.httpUrl.delete<EventSummary>(url, { headers })
+    return this.httpUrl.delete<EventSummary>(url)
       .pipe(
         tap(data => console.log('deleteEventSummary: ' + id)),
         catchError(this.handleError)
