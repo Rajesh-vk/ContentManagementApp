@@ -83,9 +83,9 @@ export class EventService {
 
   deleteEventSummary(id: string): Observable<{}> {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    console.log(id);
+ 
     const url = `${this.eventsSummaryUrl}/${id}`;
-    return this.httpUrl.post<any>(url,{})
+    return this.httpUrl.delete<EventSummary>(url)
       .pipe(
         tap(data => console.log('deleteEventSummary: ' + id)),
         catchError(this.handleError)
