@@ -11,7 +11,15 @@ import { environment } from 'src/environments/environment';
 export class ReportService {
 
   private userUrl = environment.baseApiUrl + environment.userApiUrl;
+
+  userList$ = this.httpUrl.get<User[]>(this.userUrl)
+    .pipe(
+      catchError(this.handleError),
+      // shareReplay(1)
+    );
+
   constructor(private httpUrl: HttpClient) { }
+  
   getEvent(id: string): Observable<User> {
     const url = `${this.userUrl}/${id}`;
     return this.httpUrl.get<User>(url)

@@ -10,9 +10,9 @@ import { PageNotFoundComponent } from './page-not-found.component';
 import { UserModule } from './user/user.module';
 import { CommonModule } from '@angular/common';
 import { HomeModule } from './home/home.module';
-import { EventModule } from './events/event.module';
 import { ReportModule } from './report/report.module';
 import { JwtInterceptor } from './httpInterceptor/jwt.Interceptor';
+import { ConfigurationModule } from './configuration/configuration.module';
 
 
 
@@ -24,13 +24,13 @@ import { JwtInterceptor } from './httpInterceptor/jwt.Interceptor';
     UserModule,
     HomeModule,
     ReportModule,
+    ConfigurationModule,
     AppRoutingModule,
     CommonModule
   ],
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-   
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
