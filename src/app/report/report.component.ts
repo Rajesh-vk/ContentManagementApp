@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ReportService } from './report.service';
+import { User } from '../Model/User';
+import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-report',
@@ -7,16 +11,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
 
-  constructor() { }
+  constructor(private reportService: ReportService, private router: Router) { }
   errorMessage: string;
   pageTitle = 'Register';
-  model: any = {};
+  model: User;
 
   ngOnInit() {
   }
 
   onSubmit() {
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.model))
+    this.reportService.createUser(this.model).pipe(first())
+    .subscribe(
+      data => {
+        alert('Registeration completed successfully');
+        this.router.navigate(['/dashBoard']);
+      },
+      error => {
+          this.errorMessage = 'Username or password is incorrect';
+      });
   }
 
 }

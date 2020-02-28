@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, combineLatest, EMPTY, from, merge, Subject, throwError, of, Observable } from 'rxjs';
 import { catchError, filter, map, mergeMap, scan, shareReplay, tap, toArray, switchMap } from 'rxjs/operators';
-import { EventSummary } from '../Model/eventSummay';
+import { User } from '../Model/User';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,45 +12,45 @@ export class ReportService {
 
   private userUrl = environment.baseApiUrl + environment.userApiUrl;
   constructor(private httpUrl: HttpClient) { }
-  getEvent(id: string): Observable<EventSummary> {
+  getEvent(id: string): Observable<User> {
     const url = `${this.userUrl}/${id}`;
-    return this.httpUrl.get<EventSummary>(url)
+    return this.httpUrl.get<User>(url)
       .pipe(
         tap(data => console.log('getEvent: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
   }
 
-  createEventSummary(eventSummary: EventSummary): Observable<EventSummary> {
+  createUser(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const d: Date = new Date()
-    eventSummary.id = 'Evnt2020' +  d.getTime().toString();
-    return this.httpUrl.post<EventSummary>(this.userUrl, eventSummary, { headers })
+    const d: Date = new Date();
+    user.id = 'USR2020' +  d.getTime().toString();
+    user.UserRole = 1;
+    return this.httpUrl.post<User>(this.userUrl, user, { headers })
       .pipe(
-        tap(data => console.log('createEventSummary: ' + JSON.stringify(data))),
+        tap(data => console.log('createuser: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
   }
 
-  deleteEventSummary(id: string): Observable<{}> {
+  deleteUser(id: string): Observable<{}> {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
- 
     const url = `${this.userUrl}/${id}`;
-    return this.httpUrl.delete<EventSummary>(url)
+    return this.httpUrl.delete<User>(url)
       .pipe(
-        tap(data => console.log('deleteEventSummary: ' + id)),
+        tap(data => console.log('deleteUser: ' + id)),
         catchError(this.handleError)
       );
   }
 
-  updateEventSummary(eventSummary: EventSummary): Observable<EventSummary> {
+  updateUser(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.userUrl}/${eventSummary.id}`;
-    return this.httpUrl.put<EventSummary>(url, eventSummary, { headers })
+    const url = `${this.userUrl}/${user.id}`;
+    return this.httpUrl.put<User>(url, user, { headers })
       .pipe(
-        tap(() => console.log('updateEventSummary: ' + eventSummary.id)),
-        // Return the EventSummary on an update
-        map(() => eventSummary),
+        tap(() => console.log('updateUser: ' + user.id)),
+        // Return the User on an update
+        map(() => user),
         catchError(this.handleError)
       );
   }
