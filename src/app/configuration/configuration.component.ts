@@ -27,7 +27,7 @@ export class ConfigurationComponent implements OnInit {
     .pipe(
       map(([users, pmoId]) =>
       users.filter(user =>
-        pmoId ? user.UserRole === pmoId : true
+        pmoId ? user.userRoleId === pmoId : true
         )),
       catchError(err => {
         this.errorMessageSubject.next(err);

@@ -26,7 +26,7 @@ export class ReportComponent implements OnInit {
     password: this.model.password,
     emailId: this.model.email,
     token: null,
-    UserRole: 1
+    userRoleId: 1
     };
     this.reportService.createUser(this.currentUser).pipe(first())
     .subscribe(

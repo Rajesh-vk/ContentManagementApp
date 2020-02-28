@@ -34,7 +34,7 @@ export class ReportService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const d: Date = new Date();
     user.id = 'USR2020' +  d.getTime().toString();
-    user.UserRole = 1;
+    user.userRoleId = 1;
     return this.httpUrl.post<User>(this.userUrl, user, { headers })
       .pipe(
         tap(data => console.log('createuser: ' + JSON.stringify(data))),
