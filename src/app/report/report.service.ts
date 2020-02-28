@@ -14,12 +14,13 @@ export class ReportService {
 
   userList$ = this.httpUrl.get<User[]>(this.userUrl)
     .pipe(
+      tap(data => console.log('getuser: ' + JSON.stringify(data))),
       catchError(this.handleError),
       // shareReplay(1)
     );
 
   constructor(private httpUrl: HttpClient) { }
-  
+
   getEvent(id: string): Observable<User> {
     const url = `${this.userUrl}/${id}`;
     return this.httpUrl.get<User>(url)
