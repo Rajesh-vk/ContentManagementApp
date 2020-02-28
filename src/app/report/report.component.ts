@@ -14,13 +14,21 @@ export class ReportComponent implements OnInit {
   constructor(private reportService: ReportService, private router: Router) { }
   errorMessage: string;
   pageTitle = 'Register';
-  model: User;
-
+  model: any = {};
+  currentUser: User;
   ngOnInit() {
   }
 
   onSubmit() {
-    this.reportService.createUser(this.model).pipe(first())
+    this.currentUser = {
+    id: this.model.userName,
+    userName: this.model.userName,
+    password: this.model.password,
+    emailId: this.model.email,
+    token: null,
+    UserRole: 1
+    };
+    this.reportService.createUser(this.currentUser).pipe(first())
     .subscribe(
       data => {
         alert('Registeration completed successfully');

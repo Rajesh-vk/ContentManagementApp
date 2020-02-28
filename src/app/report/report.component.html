@@ -11,7 +11,7 @@
         <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" [mustMatch]="['password', 'confirmPassword']" novalidate>
             <div class="form-group">
                 <label for="lastName">User Name</label>
-                <input type="text" class="form-control" name="lastName" [(ngModel)]="model.UserName" #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required />
+                <input type="text" class="form-control" name="lastName" [(ngModel)]="model.userName" #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required />
                 <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
                     <div *ngIf="lastName.errors.required">User Name is required</div>
                 </div>
