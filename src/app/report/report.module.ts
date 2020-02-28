@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from '../user/auth.guard';
 import { ReportComponent } from './report.component';
+import { MustMatchDirective } from '../Directives/MatchDir';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ReportComponent } from './report.component';
     ])
   ],
   declarations: [
-    ReportComponent
+    ReportComponent,
+    MustMatchDirective
   ]
 })
 export class ReportModule { }

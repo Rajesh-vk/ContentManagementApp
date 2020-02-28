@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   authApiUrl: 'http://localhost:50184/api/Auth/Gettoken',
-  eventApiUrl: 'http://localhost:50268/events/event/'
+  baseApiUrl: 'http://localhost:50268/',
+  eventApiUrl: 'events/event/',
+  userApiUrl: 'users/user/'
 };
 
 /*

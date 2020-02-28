@@ -15,6 +15,7 @@ import { ReportModule } from './report/report.module';
 import { JwtInterceptor } from './httpInterceptor/jwt.Interceptor';
 
 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -28,7 +29,8 @@ import { JwtInterceptor } from './httpInterceptor/jwt.Interceptor';
   ],
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+   
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

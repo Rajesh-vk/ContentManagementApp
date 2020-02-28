@@ -8,8 +8,15 @@ import { Component, OnInit } from '@angular/core';
 export class ReportComponent implements OnInit {
 
   constructor() { }
+  errorMessage: string;
+  pageTitle = 'Register';
+  model: any = {};
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.model))
   }
 
 }

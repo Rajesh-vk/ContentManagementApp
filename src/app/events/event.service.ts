@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class EventService {
 
-  private eventsSummaryUrl = environment.eventApiUrl;
+  private eventsSummaryUrl = environment.baseApiUrl + environment.eventApiUrl;
   eventCount = 0;
 
   eventsSummary$ = this.httpUrl.get<EventSummary[]>(this.eventsSummaryUrl)
