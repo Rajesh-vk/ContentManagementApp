@@ -5,17 +5,27 @@
     <h6 class="card-title"><i class="fa fa-registered"></i> {{pageTitle}}</h6>
 </div>
 
-<div class="card-body">
-  <div class="container" *ngIf="vm$ | async as vm">
-    <div class="row justify-content-between">
-      <div class="col-3">
+<div class="card-body" *ngIf="vm$ | async as vm">
+  <!-- <div class="container" > -->
+    <div class="row mb-2">
+      <div class="col-md-4">
         <select class="form-control"
                 (change)="onSelected($event.target.value)">
           <option *ngFor="let user of vm.Users"
-                  [value]="user.id">{{ user.userName }}</option>
+                  [value]="user.id">{{ user.username }}</option>
         </select>
       </div>
-      <div class="col-2">
+      <div class="col-md-1">
+        <button type="button"
+                class="btn btn-outline-secondary"
+                (click)="onAdd()">AddPMO</button>
+      </div>
+      <div class="col-md-1">
+        <button type="button"
+                class="btn btn-outline-secondary"
+                (click)="onRemove()">RemovePMO</button>
+      </div>
+      <!-- <div class="col-2">
         <button type="button"
                 class="btn btn-outline-secondary"
                 (click)="onAdd()">Add PMO</button>
@@ -24,28 +34,23 @@
         <button type="button"
                 class="btn btn-outline-secondary"
                 (click)="onRemove()">Remove PMO</button>
-      </div>
+      </div> -->
+    </div>
+  <!-- </div> -->
+
+  
+  <div class="container" *ngIf="vm.PmoUsers">
+    <div class="row">
+      <div class="col-md-12" *ngIf="vm.PmoUsers && vm.PmoUsers.length > 0">
+  <app-grid-view #accountListTable class="your-class" hideHeader="false" name="Filter" pageSize="5" [columns]="[
+  { name: 'User Name', property: 'username', visible: true, isModelProperty: true, convertToTitleCase: true },
+  { name: 'Email Id', property: 'emailId', visible: true, isModelProperty: true, convertToTitleCase: true }
+]" [data]="vm.PmoUsers" ></app-grid-view>
+
     </div>
   </div>
-
-  <div class="table-responsive">
-    <table class="table mb-0"
-           *ngIf="vm.PmoUsers">
-      <thead>
-        <tr>
-          <th>UserName</th>
-          <th>EmailId</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let pmoUser of vm.PmoUsers">
-        <tr>
-          <td>{{ pmoUser.userName }}</td>
-          <td>{{ pmoUser.emailId }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
   
+</div>
 
 </div>
 

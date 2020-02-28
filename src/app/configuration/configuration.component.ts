@@ -13,12 +13,13 @@ export class ConfigurationComponent implements OnInit {
   private errorMessageSubject = new Subject<string>();
   errorMessage$ = this.errorMessageSubject.asObservable();
 
-  private pmoSubject = new BehaviorSubject<number>(1);
+  private pmoSubject = new BehaviorSubject<number>(0);
   pmoAction$ = this.pmoSubject.asObservable();
 
   // Merge Data stream with Action stream
   // To filter to the selected category
   user$ = this.reportService.userList$;
+
   pmoUser$ = combineLatest([
     this.reportService.userList$,
     this.pmoAction$
@@ -47,5 +48,19 @@ export class ConfigurationComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  onSelected(roleId: string): void {
+    this.pmoSubject.next(0);
+  }
+
+  onAdd(): void {
+    this.pmoSubject.next(1);
+  }
+
+  onRemove(): void {
+    this.pmoSubject.next(1);
+  }
+
+
 
 }
