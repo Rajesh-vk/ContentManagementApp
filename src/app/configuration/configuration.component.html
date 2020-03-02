@@ -1,13 +1,16 @@
-<div class="card">
-  
+
+
+
+
+<div class="container-fluid" *ngIf="vm$ | async as vm">
+
+<div class="card" >
   <div class="card-header card-header-danger">
-  
     <h6 class="card-title"><i class="fa fa-gear"></i> {{pageTitle}}</h6>
 </div>
-
-<div class="card-body" *ngIf="vm$ | async as vm">
-  <!-- <div class="container" > -->
-    <div class="row mb-2">
+<div class="card-body" >
+  <div class="row mb-2">
+      <label class="col-md-2 col-form-label">User Name</label>
       <div class="col-md-4">
         <select class="form-control"
                 (change)="onSelected($event.target.value)">
@@ -15,12 +18,12 @@
                   [value]="user.id">{{ user.username }}</option>
         </select>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-2">
         <button type="button"
                 class="btn btn-outline-secondary"
                 (click)="onAdd()">AddPMO</button>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-2">
         <button type="button"
                 class="btn btn-outline-secondary"
                 (click)="onRemove()">RemovePMO</button>
@@ -36,9 +39,14 @@
                 (click)="onRemove()">Remove PMO</button>
       </div> -->
     </div>
-  <!-- </div> -->
-
+  </div>
   
+</div>
+<div class="card">
+  <div class="card-header card-header-danger">
+    <h6 class="card-title"><i class="fa fa-user"></i> PMO Users</h6>
+</div>
+<div class="card-body" >
   <div class="container" *ngIf="vm.PmoUsers">
     <div class="row">
       <div class="col-md-12" *ngIf="vm.PmoUsers && vm.PmoUsers.length > 0">
@@ -51,10 +59,8 @@
   </div>
   
 </div>
-
 </div>
-
-
+</div>
 
 <div class="alert alert-danger"
      *ngIf="errorMessage">{{errorMessage}}

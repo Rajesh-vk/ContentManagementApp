@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject, BehaviorSubject, combineLatest, EMPTY } from 'rxjs';
 import { ReportService } from '../report/report.service';
 import { catchError, map } from 'rxjs/operators';
+import { User } from '../Model/User';
 
 @Component({
   selector: 'app-configuration',
@@ -13,8 +14,12 @@ export class ConfigurationComponent implements OnInit {
   private errorMessageSubject = new Subject<string>();
   errorMessage$ = this.errorMessageSubject.asObservable();
 
-  private pmoSubject = new BehaviorSubject<number>(0);
+  private pmoSubject = new BehaviorSubject<number>(2);
   pmoAction$ = this.pmoSubject.asObservable();
+
+  private pmoSelectedUser = new BehaviorSubject<string>('0');
+  pmoSelectedUserAction$ = this.pmoSelectedUser.asObservable();
+
 
   // Merge Data stream with Action stream
   // To filter to the selected category
@@ -35,6 +40,21 @@ export class ConfigurationComponent implements OnInit {
       })
     );
 
+    selectedUser$ = combineLatest([
+      this.reportService.userList$,
+      this.pmoSelectedUserAction$
+    ])
+      .pipe(
+        map(([users, userId]) =>
+        users.filter(user =>
+          userId ? user.id === userId : true
+          )),
+        catchError(err => {
+          this.errorMessageSubject.next(err);
+          return EMPTY;
+        })
+      );
+
     vm$ = combineLatest([
       this.user$,
       this.pmoUser$
@@ -49,16 +69,36 @@ export class ConfigurationComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSelected(roleId: string): void {
-    this.pmoSubject.next(0);
+  onSelected(userId: string): void {
+   this.pmoSelectedUser.next(userId);
   }
 
   onAdd(): void {
-    this.pmoSubject.next(1);
+    this.selectedUser$.subscribe(
+      data => {
+        const user: User = data[0];
+        user.userRoleId = 2;
+        this.reportService.updateUser(user).subscribe({
+          next: () => this.pmoSubject.next(2),
+          error: err => this.errorMessageSubject.next(err),
+          complete: () => this.pmoSubject.next(2),
+        });
+      }
+    );
   }
 
   onRemove(): void {
-    this.pmoSubject.next(1);
+    this.selectedUser$.subscribe(
+      data => {
+        const user: User = data[0];
+        user.userRoleId = 1;
+        this.reportService.updateUser(user).subscribe({
+          next: () => this.pmoSubject.next(1),
+          error: err => this.errorMessageSubject.next(err),
+          complete: () => this.pmoSubject.next(2),
+        });
+      }
+    );
   }
 
 
