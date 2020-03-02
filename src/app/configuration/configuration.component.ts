@@ -79,7 +79,7 @@ export class ConfigurationComponent implements OnInit {
         const user: User = data[0];
         user.userRoleId = 2;
         this.reportService.updateUser(user).subscribe({
-          next: () => this.pmoSubject.next(2),
+          next: () => this.pmoSubject.next(1),
           error: err => this.errorMessageSubject.next(err),
           complete: () => this.pmoSubject.next(2),
         });
