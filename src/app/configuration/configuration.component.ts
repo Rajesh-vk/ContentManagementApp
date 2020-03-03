@@ -68,27 +68,26 @@ export class ConfigurationComponent implements OnInit {
   }
 
   onAdd(): void {
-    this.selectedUser$.subscribe(
-      data => {
-        const user: User = data[0];
-        user.userRoleId = 2;
-        this.reportService.updateUser(user).subscribe({
-          next: () => this.onLoad() ,
-          error: err => this.errorMessageSubject.next(err),
-        });
-      }
-    );
+    this.updatePmoUser(2);
   }
 
   onRemove(): void {
+    this.updatePmoUser(1);
+  }
+
+  updatePmoUser(userRoleId: number) {
     this.selectedUser$.subscribe(
       data => {
         const user: User = data[0];
-        user.userRoleId = 1;
+        if (user) {
+        user.userRoleId = userRoleId;
         this.reportService.updateUser(user).subscribe({
           next: () => this.onLoad() ,
           error: err => this.errorMessageSubject.next(err),
         });
+      } else {
+        alert('Select a user to proceed');
+      }
       }
     );
   }

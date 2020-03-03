@@ -14,9 +14,7 @@ export class ReportService {
 
   userList$ = this.httpUrl.get<User[]>(this.userUrl)
     .pipe(
-      tap(data => console.log('getuser: ' + JSON.stringify(data))),
       catchError(this.handleError),
-      // shareReplay(1)
     );
 
     pmoUser$ = combineLatest([
@@ -30,11 +28,10 @@ export class ReportService {
 
   constructor(private httpUrl: HttpClient) { }
 
-  getEvent(id: string): Observable<User> {
+  getUserById(id: string): Observable<User> {
     const url = `${this.userUrl}/${id}`;
     return this.httpUrl.get<User>(url)
       .pipe(
-        tap(data => console.log('getEvent: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
   }

@@ -14,6 +14,7 @@
       <div class="col-md-4">
         <select class="form-control"
                 (change)="onSelected($event.target.value)">
+                <option value="0"> -- select User --</option>
           <option *ngFor="let user of vm.Users"
                   [value]="user.id">{{ user.username }}</option>
         </select>
