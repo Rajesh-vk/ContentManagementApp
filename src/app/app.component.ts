@@ -35,13 +35,13 @@ export class AppComponent {
 
   checkRouterEvent(routerEvent: Event): void {
     if (routerEvent instanceof NavigationStart) {
-      this.loading = true;
+      this.authService.loadingSubject.next(true);
     }
 
     if (routerEvent instanceof NavigationEnd ||
         routerEvent instanceof NavigationCancel ||
         routerEvent instanceof NavigationError) {
-      this.loading = false;
+          this.authService.loadingSubject.next(false);
     }
   }
 

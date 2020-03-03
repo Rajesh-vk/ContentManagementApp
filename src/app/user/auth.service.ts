@@ -4,6 +4,7 @@ import { User } from '../Model/User';
 import { map } from 'rxjs/internal/operators/map';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -12,6 +13,9 @@ import { environment } from '../../environments/environment';
 export class AuthService {
   currentUser: User;
   redirectUrl: string;
+
+  loadingSubject = new BehaviorSubject<boolean>(false);
+  loadingAction$ = this.loadingSubject.asObservable();
 
   get isLoggedIn(): boolean {
     return !!localStorage.getItem('currentUser');
@@ -45,6 +49,8 @@ logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
 }
+
+
 
 
 }

@@ -1,5 +1,7 @@
-<span class="fa fa-spinner spinner"
+<div *ngIf="authService.loadingAction$ | async as loading">
+  <span class="fa fa-spinner spinner"
       *ngIf="loading"></span>
+    </div>
 
 <!-- Main part of the menu-->
 

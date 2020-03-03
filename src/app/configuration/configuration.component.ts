@@ -3,6 +3,7 @@ import { Subject, BehaviorSubject, combineLatest, EMPTY } from 'rxjs';
 import { ReportService } from '../report/report.service';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../Model/User';
+import { AuthService } from '../user/auth.service';
 
 @Component({
   selector: 'app-configuration',
@@ -21,6 +22,7 @@ export class ConfigurationComponent implements OnInit {
   pmoSelectedUserAction$ = this.pmoSelectedUser.asObservable();
 
   pmoUserDetails: User[];
+  loading = false;
 
   // Merge Data stream with Action stream
   // To filter to the selected category
@@ -58,7 +60,7 @@ export class ConfigurationComponent implements OnInit {
           ({ Users, PmoUsers }))
       );
 
-  constructor(private reportService: ReportService) { }
+  constructor(private authService: AuthService, private reportService: ReportService) { }
 
   ngOnInit() {
   }
@@ -68,11 +70,14 @@ export class ConfigurationComponent implements OnInit {
   }
 
   onAdd(): void {
+    this.authService.loadingSubject.next(true);
     this.updatePmoUser(2);
   }
 
   onRemove(): void {
+    this.authService.loadingSubject.next(true);
     this.updatePmoUser(1);
+
   }
 
   updatePmoUser(userRoleId: number) {
@@ -86,6 +91,7 @@ export class ConfigurationComponent implements OnInit {
           error: err => this.errorMessageSubject.next(err),
         });
       } else {
+        this.authService.loadingSubject.next(false);
         alert('Select a user to proceed');
       }
       }
@@ -95,7 +101,10 @@ export class ConfigurationComponent implements OnInit {
   onLoad() {
     this.pmoUserDetails = [];
     this.reportService.pmoUser$.subscribe(
-      data => this.pmoUserDetails = data,
+      data => {
+        this.pmoUserDetails = data,
+        this.authService.loadingSubject.next(false);
+      }
     );
  }
 
