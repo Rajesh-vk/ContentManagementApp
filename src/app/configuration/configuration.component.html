@@ -28,16 +28,6 @@
                 class="btn btn-outline-secondary"
                 (click)="onRemove()">RemovePMO</button>
       </div>
-      <!-- <div class="col-2">
-        <button type="button"
-                class="btn btn-outline-secondary"
-                (click)="onAdd()">Add PMO</button>
-      </div>
-      <div class="col-2">
-        <button type="button"
-                class="btn btn-outline-secondary"
-                (click)="onRemove()">Remove PMO</button>
-      </div> -->
     </div>
   </div>
   
@@ -49,11 +39,11 @@
 <div class="card-body" >
   <div class="container" *ngIf="vm.PmoUsers">
     <div class="row">
-      <div class="col-md-12" *ngIf="vm.PmoUsers && vm.PmoUsers.length > 0">
+      <div class="col-md-12" *ngIf="pmoUserDetails && pmoUserDetails.length > 0">
   <app-grid-view #accountListTable class="your-class" hideHeader="false" name="Filter" pageSize="5" [columns]="[
   { name: 'User Name', property: 'username', visible: true, isModelProperty: true, convertToTitleCase: true },
   { name: 'Email Id', property: 'emailId', visible: true, isModelProperty: true, convertToTitleCase: true }
-]" [data]="vm.PmoUsers" ></app-grid-view>
+]" [data]="pmoUserDetails" ></app-grid-view>
 
     </div>
   </div>
@@ -63,6 +53,6 @@
 </div>
 
 <div class="alert alert-danger"
-     *ngIf="errorMessage">{{errorMessage}}
+     *ngIf="errorMessage$ | async as errorMessage">{{errorMessage}}
 </div>
 </div>

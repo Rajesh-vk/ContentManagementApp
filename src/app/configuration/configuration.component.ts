@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, BehaviorSubject, combineLatest, EMPTY } from 'rxjs';
 import { ReportService } from '../report/report.service';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../Model/User';
 
 @Component({
@@ -20,20 +20,14 @@ export class ConfigurationComponent implements OnInit {
   private pmoSelectedUser = new BehaviorSubject<string>('0');
   pmoSelectedUserAction$ = this.pmoSelectedUser.asObservable();
 
+  pmoUserDetails: User[];
 
   // Merge Data stream with Action stream
   // To filter to the selected category
   user$ = this.reportService.userList$;
 
-  pmoUser$ = combineLatest([
-    this.reportService.userList$,
-    this.pmoAction$
-  ])
-    .pipe(
-      map(([users, pmoId]) =>
-      users.filter(user =>
-        pmoId ? user.userRoleId === pmoId : true
-        )),
+  pmoUser$ = this.reportService.pmoUser$.pipe(
+     tap(data => this.pmoUserDetails = data),
       catchError(err => {
         this.errorMessageSubject.next(err);
         return EMPTY;
@@ -79,9 +73,8 @@ export class ConfigurationComponent implements OnInit {
         const user: User = data[0];
         user.userRoleId = 2;
         this.reportService.updateUser(user).subscribe({
-          next: () => this.pmoSubject.next(1),
+          next: () => this.onLoad() ,
           error: err => this.errorMessageSubject.next(err),
-          complete: () => this.pmoSubject.next(2),
         });
       }
     );
@@ -93,13 +86,19 @@ export class ConfigurationComponent implements OnInit {
         const user: User = data[0];
         user.userRoleId = 1;
         this.reportService.updateUser(user).subscribe({
-          next: () => this.pmoSubject.next(1),
+          next: () => this.onLoad() ,
           error: err => this.errorMessageSubject.next(err),
-          complete: () => this.pmoSubject.next(2),
         });
       }
     );
   }
+
+  onLoad() {
+    this.pmoUserDetails = [];
+    this.reportService.pmoUser$.subscribe(
+      data => this.pmoUserDetails = data,
+    );
+ }
 
 
 

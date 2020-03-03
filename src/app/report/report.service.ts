@@ -19,6 +19,15 @@ export class ReportService {
       // shareReplay(1)
     );
 
+    pmoUser$ = combineLatest([
+      this.userList$,
+    ])
+      .pipe(
+        map(([users]) =>
+        users.filter(user => user.userRoleId === 2)),
+        catchError(this.handleError),
+      );
+
   constructor(private httpUrl: HttpClient) { }
 
   getEvent(id: string): Observable<User> {
