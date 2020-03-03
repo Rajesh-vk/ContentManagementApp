@@ -100,11 +100,13 @@ export class ConfigurationComponent implements OnInit {
 
   onLoad() {
     this.pmoUserDetails = [];
-    this.reportService.pmoUser$.subscribe(
-      data => {
+    this.reportService.pmoUser$.subscribe({
+    next:  data => {
         this.pmoUserDetails = data,
         this.authService.loadingSubject.next(false);
-      }
+      },
+      error: err => this.errorMessageSubject.next(err)
+    }
     );
  }
 
