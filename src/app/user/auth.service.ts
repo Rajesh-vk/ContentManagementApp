@@ -30,7 +30,7 @@ export class AuthService {
   get loggedUserRole(): string {
 
     const userDetails = JSON.parse(localStorage.getItem('currentUser'));
-    return userDetails.userRoleId;
+    return userDetails ? userDetails.userRoleId : '';
   }
 
   private loginUrl = environment.authApiUrl;
