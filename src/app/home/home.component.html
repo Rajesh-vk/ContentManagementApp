@@ -3,7 +3,7 @@
     <h6 class="card-title"><i class="fa fa-dashboard"></i> {{pageTitle}}</h6>
   </div>
   <div class="card-body">
-    <div class="container" *ngIf="eventSummary$ | async eventSummary">
+    <div class="container" *ngIf="eventSummary$ | async eventSummary as data else empty">
       <div class="row">
         
         <div class="col-md-3">
@@ -78,4 +78,81 @@
     </div>
     
   </div>
+  <ng-template #empty>
+    <div class="container" >
+      <div class="row">
+        
+        <div class="col-md-3">
+          <div class="card">
+              <div class="card-header card-header-danger">
+                <h6 class="card-title">Total Events</h6>
+              </div>
+              <div class="card-body">
+                  
+                  <p class="card-category">
+                      <span class="text-success"><i class="fa fa-long-arrow-up"></i>{{totalEvents}} </span> </p>
+              </div>
+              <div class="card-footer">
+                  <div class="stats">
+                      <i class="material-icons">access_time</i> updated 4 minutes ago
+                  </div>
+              </div>
+            </div>
+
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+            <div class="card-header card-header-danger">
+              <h6 class="card-title">Live Impacts</h6>
+            </div>
+            <div class="card-body">
+                <p class="card-category">
+                    <span class="text-success"><i class="fa fa-long-arrow-up"></i>{{liveImpacted}} </span> </p>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">access_time</i> updated 4 minutes ago
+                </div>
+            </div>
+          </div>
+
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+          <div class="card-header card-header-danger">
+            <h6 class="card-title">Volunteers</h6>
+          </div>
+          <div class="card-body">
+              <p class="card-category">
+                  <span class="text-success"><i class="fa fa-long-arrow-up"></i>{{totalVolunteers}} </span> </p>
+          </div>
+          <div class="card-footer">
+              <div class="stats">
+                  <i class="material-icons">access_time</i> updated 4 minutes ago
+              </div>
+          </div>
+        </div>
+
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+        <div class="card-header card-header-danger">
+          <h6 class="card-title">VolunteerHours</h6>
+        </div>
+        <div class="card-body">
+            <p class="card-category">
+                <span class="text-success"><i class="fa fa-long-arrow-up"></i>{{totalVolunteersHours}} </span> </p>
+        </div>
+        <div class="card-footer">
+            <div class="stats">
+                <i class="material-icons">access_time</i> updated 4 minutes ago
+            </div>
+        </div>
+      </div>
+
+</div>
+    </div>
+    
+  </div>
+</ng-template>
 </div>
