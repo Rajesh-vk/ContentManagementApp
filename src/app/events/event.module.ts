@@ -8,6 +8,7 @@ import { EventEditInfoComponent } from './event-edit-info/event-edit-info.compon
 import { EventEditVolundeersComponent } from './event-edit-volundeers/event-edit-volundeers.component';
 import { EventEditComponent } from './event-edit/event-edit.component';
 import { EventResolver } from './event-resolver.service';
+import { OnlynumberDirective } from '../Directives/OnlyNumberDer';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { EventResolver } from './event-resolver.service';
     EventDetailComponent,
     EventEditInfoComponent,
     EventEditVolundeersComponent,
-    EventEditComponent
+    EventEditComponent,
+    OnlynumberDirective
   ]
 })
 export class EventModule { }

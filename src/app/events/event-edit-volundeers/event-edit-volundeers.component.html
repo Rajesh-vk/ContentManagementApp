@@ -12,6 +12,7 @@
                  type="text"
                  placeholder="totalNoVolunteers (required)"
                  required
+                 numbersOnly 
                  [(ngModel)]="event.totalNoVolunteers"
                  name="totalNoVolunteers"
                  #totalNoVolunteersVar="ngModel"
@@ -35,6 +36,7 @@
                  type="text"
                  placeholder="totalVolunteHours (required)"
                  required
+                 numbersOnly 
                  [(ngModel)]="event.totalVolunteHours"
                  name="totalVolunteHours"
                  #totalVolunteHoursVar="ngModel"
@@ -58,6 +60,7 @@
                  type="text"
                  placeholder="totalTravelHours (required)"
                  required
+                 numbersOnly 
                  [(ngModel)]="event.totalTravelHours"
                  name="totalTravelHours"
                  #totalTravelHoursVar="ngModel"
@@ -81,6 +84,7 @@
                  type="text"
                  placeholder="livesImpacted (required)"
                  required
+                 numbersOnly 
                  [(ngModel)]="event.livesImpacted"
                  name="livesImpacted"
                  #livesImpactedVar="ngModel"
