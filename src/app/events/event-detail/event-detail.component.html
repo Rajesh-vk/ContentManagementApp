@@ -59,8 +59,9 @@
                 >
           <i class="fa fa-chevron-left"></i> Back
         </button>
-        <button class="btn btn-primary mr-3"
+        <button *ngIf="userRole !='1'" class="btn btn-primary mr-3"
                 style="width:80px"
+                [disabled]="userRole !='1'?false:true"
                 [routerLink]="['edit']">
           Edit
         </button>
