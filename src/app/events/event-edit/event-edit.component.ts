@@ -120,13 +120,15 @@ export class EventEditComponent implements OnInit {
 
     if (this.event.eventName &&
       this.event.eventName.length >= 3 &&
-      this.event.eventDescription) {
+      this.event.eventDescription && this.event.baseLocation
+      && this.event.beneficiaryName && this.event.venueAddress) {
       this.dataIsValid['info'] = true;
     } else {
       this.dataIsValid['info'] = false;
     }
 
-    if (this.event.totalNoVolunteers ) {
+    if (this.event.totalNoVolunteers && this.event.totalVolunteHours
+      && this.event.totalTravelHours && this.event.livesImpacted) {
       this.dataIsValid['tags'] = true;
     } else {
       this.dataIsValid['tags'] = false;
