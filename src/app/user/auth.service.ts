@@ -27,6 +27,12 @@ export class AuthService {
     return username.username;
   }
 
+  get loggedUserRole(): string {
+
+    const userDetails = JSON.parse(localStorage.getItem('currentUser'));
+    return userDetails.userRoleId;
+  }
+
   private loginUrl = environment.authApiUrl;
 
   constructor(private httpUrl: HttpClient) { }
@@ -36,9 +42,7 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpUrl.post<any>(this.loginUrl, { Username: username, Password: password }, { headers })
         .pipe(map(user => {
-            // login successful if there's a jwt token in the response
             if (user && user.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUser = user;
             }

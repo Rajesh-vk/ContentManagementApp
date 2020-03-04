@@ -14,23 +14,23 @@
 
       <ul class="list-unstyled components">
           
-          <li class="nav-item" routerLinkActive="active">
+          <li class="nav-item" routerLinkActive="active" *ngIf="isLoggedIn">
             <a class="nav-link"
             [routerLink]="['/dashBoard']"
             routerLinkActive="active"><i class="fa fa-dashboard"></i> DashBoard</a>
           </li>
-          <li class="nav-item" routerLinkActive="active">
+          <li class="nav-item" routerLinkActive="active" *ngIf="isLoggedIn">
             <a class="nav-link"
          [routerLink]="['/event']"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact : true}"><i class="fa fa-tasks"></i> Events</a>
           </li>
-          <li class="nav-item"  routerLinkActive="active" >
+          <li class="nav-item"  routerLinkActive="active" *ngIf="userRole !='1'" >
             <a class="nav-link"
             [routerLink]="['/event', '0', 'edit']"
                routerLinkActive="active"><i class="fa fa-tasks"></i> AddEvents</a>
           </li>
-          <li class="nav-item" routerLinkActive="active" *ngIf="isLoggedIn">
+          <li class="nav-item" routerLinkActive="active" *ngIf="userRole =='3'">
             <a class="nav-link"
             [routerLink]="['/configuration']"
          routerLinkActive="active"><i class="fa fa-gear"></i> Configuration</a>

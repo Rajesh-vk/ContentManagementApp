@@ -25,6 +25,13 @@ export class AppComponent {
     }
     return '';
   }
+  get userRole(): string {
+    if (this.authService.loggedUserRole) {
+      return this.authService.loggedUserRole;
+    }
+    return '';
+  }
+
 
   constructor(private authService: AuthService,
               private router: Router) {
