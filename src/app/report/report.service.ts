@@ -12,6 +12,8 @@ export class ReportService {
 
   private userUrl = environment.baseApiUrl + environment.userApiUrl;
 
+  private registerUrl = environment.authApiRegisterUrl;
+
   userList$ = this.httpUrl.get<User[]>(this.userUrl)
     .pipe(
       catchError(this.handleError),
@@ -41,7 +43,7 @@ export class ReportService {
     const d: Date = new Date();
     user.id = 'USR2020' +  d.getTime().toString();
     user.userRoleId = 1;
-    return this.httpUrl.post<User>(this.userUrl, user, { headers })
+    return this.httpUrl.post<User>(this.registerUrl, user, { headers })
       .pipe(
         tap(data => console.log('createuser: ' + JSON.stringify(data))),
         catchError(this.handleError)
