@@ -11,36 +11,33 @@ import { environment } from 'src/environments/environment';
 export class EventService {
 
   private eventsSummaryUrl = environment.baseApiUrl + environment.eventApiUrl;
-  eventCount = 0;
 
   eventsSummary$ = this.httpUrl.get<EventSummary[]>(this.eventsSummaryUrl)
     .pipe(
-      tap(data => {
-        this.eventCount = data.length + 1;
-      }),
+      tap(data => console.log('getEvent: ' + JSON.stringify(data))),
       catchError(this.handleError),
       // shareReplay(1)
     );
 
-  private eventSelectedSubject = new BehaviorSubject<string>('0');
-  eventSelectedAction$ = this.eventSelectedSubject.asObservable();
+  // private eventSelectedSubject = new BehaviorSubject<string>('0');
+  // eventSelectedAction$ = this.eventSelectedSubject.asObservable();
 
-  selectedEvent$ = combineLatest([
-    this.eventsSummary$,
-    this.eventSelectedAction$
-  ]).pipe(
-    map(([events, selectedEventId]) =>
-    events.find(event => event.id === selectedEventId)
-    ),
+  // selectedEvent$ = combineLatest([
+  //   this.eventsSummary$,
+  //   this.eventSelectedAction$
+  // ]).pipe(
+  //   map(([events, selectedEventId]) =>
+  //   events.find(event => event.id === selectedEventId)
+  //   ),
 
-    shareReplay(1)
-  );
+  //   shareReplay(1)
+  // );
 
   constructor(private httpUrl: HttpClient, ) { }
 
-  selectedEventChanged(selectedEventId: string): void {
-    this.eventSelectedSubject.next(selectedEventId);
-  }
+  // selectedEventChanged(selectedEventId: string): void {
+  //   this.eventSelectedSubject.next(selectedEventId);
+  // }
 
   getEvent(id: string): Observable<EventSummary> {
     if (id === '0') {

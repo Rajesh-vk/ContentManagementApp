@@ -4,19 +4,22 @@ import {HttpClientTestingModule, HttpTestingController} from '@angular/common/ht
 
 import { EventService } from './event.service';
 import { environment } from 'src/environments/environment';
+import { EventSummary } from '../Model/eventSummay';
+import { HttpClient } from 'selenium-webdriver/http';
 
 describe('EventService', () => {
     let httpTestingController: HttpTestingController;
     let service: EventService;
     let eventsSummaryUrl;
     let eventData;
+    // let httpClientSpy: { get: jasmine.Spy };
 
     beforeEach(() => {
     TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
         providers: [EventService]
     });
-
+    // httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
     httpTestingController = TestBed.get(HttpTestingController);
     service = TestBed.get(EventService);
     eventsSummaryUrl = environment.baseApiUrl + environment.eventApiUrl;
@@ -52,7 +55,7 @@ describe('EventService', () => {
         const req =   httpTestingController.expectOne(url);
         req.flush({});
         httpTestingController.verify();
-});
+    });
 
     it('should call the createEventSummary method and reurn a created event ', () => {
         service.createEventSummary(eventData).subscribe();
@@ -60,13 +63,53 @@ describe('EventService', () => {
         const req =   httpTestingController.expectOne(url);
         req.flush(eventData);
         httpTestingController.verify();
-});
+    });
 
     it('should call the updateEventSummary method and reurn a updated event ', () => {
-    service.updateEventSummary(eventData).subscribe();
-    const url = `${eventsSummaryUrl}/${1}`;
-    const req =   httpTestingController.expectOne(url);
-    req.flush(eventData);
-    httpTestingController.verify();
-});
+        service.updateEventSummary(eventData).subscribe();
+        const url = `${eventsSummaryUrl}/${1}`;
+        const req =   httpTestingController.expectOne(url);
+        req.flush(eventData);
+        httpTestingController.verify();
+    });
+
+    it('should get the event list from eventsummary streem', () => {
+        const expectedEvent: EventSummary[] =
+        [{
+            id: '1',
+            baseLocation: 'sa',
+            beneficiaryName: 'sdada',
+            venueAddress: 'fyuuy',
+            eventName: 'event1',
+            eventDescription: 'asdsadsa',
+            totalNoVolunteers: 56,
+            totalVolunteHours: 777,
+            totalTravelHours: 100,
+            livesImpacted: 1000
+        }, {
+            id: '2',
+            baseLocation: 'sa',
+            beneficiaryName: 'sdada',
+            venueAddress: 'fyuuy',
+            eventName: 'event1',
+            eventDescription: 'asdsadsa',
+            totalNoVolunteers: 56,
+            totalVolunteHours: 777,
+            totalTravelHours: 100,
+            livesImpacted: 1000
+        }];
+        // httpClientSpy.get.and.returnValue(expectedEvent);
+
+        let data: any[];
+        service.eventsSummary$.subscribe(
+            d => data = d,
+        );
+        const url = `${eventsSummaryUrl}`;
+        const req =   httpTestingController.expectOne(url);
+        req.flush(expectedEvent);
+        httpTestingController.verify();
+
+        expect(data.length).toBe(2);
+
+    });
 });
