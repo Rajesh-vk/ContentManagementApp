@@ -7,7 +7,7 @@ export interface EventSummary {
             eventDescription: string;
             totalNoVolunteers?: number;
             totalVolunteHours: number;
-            totalTravelHours: string;
+            totalTravelHours: number;
             livesImpacted?: number;
 }
 export interface EventResolved {
