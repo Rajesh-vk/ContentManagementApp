@@ -5,7 +5,7 @@ import {HttpClientTestingModule, HttpTestingController} from '@angular/common/ht
 import { EventService } from './event.service';
 import { environment } from 'src/environments/environment';
 import { EventSummary } from '../Model/eventSummay';
-import { HttpClient } from 'selenium-webdriver/http';
+
 
 describe('EventService', () => {
     let httpTestingController: HttpTestingController;
@@ -73,7 +73,7 @@ describe('EventService', () => {
         httpTestingController.verify();
     });
 
-    it('should get the event list from eventsummary streem', () => {
+    it('should get the event list from eventsummary stream', () => {
         const expectedEvent: EventSummary[] =
         [{
             id: '1',
