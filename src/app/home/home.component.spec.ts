@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { EventService } from '../events/event.service';
 import { of, Observable } from 'rxjs';
-import { By } from "@angular/platform-browser";
+import { By } from '@angular/platform-browser';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -54,16 +54,34 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Should have the Page Tittle as DashBoard',() => {
+  it('Should have the Page Tittle as DashBoard', () => {
     const inputEle = fixture.debugElement.query(By.css('h6')).nativeElement;
     fixture.detectChanges();
     expect(inputEle.textContent).toContain('DashBoard');
- })
+ });
 
-  it('Should read the Total Events span tag value correctly',() => {
+  it('Should read the Total Events span tag value correctly', () => {
     const inputEle = fixture.debugElement.query(By.css('span')).nativeElement;
     fixture.detectChanges();
     expect(inputEle.textContent).toContain('2');
- })
+ });
+
+  it('Should read the Live Impact span tag value correctly', () => {
+    const inputEle = fixture.debugElement.queryAll(By.css('span'));
+    fixture.detectChanges();
+    expect(inputEle[1].nativeElement.textContent).toContain('2000');
+ });
+
+  it('Should read the volunteers span tag value correctly', () => {
+    const inputEle = fixture.debugElement.queryAll(By.css('span'));
+    fixture.detectChanges();
+    expect(inputEle[2].nativeElement.textContent).toContain('112');
+ });
+
+  it('Should read the volunteerHours span tag value correctly', () => {
+    const inputEle = fixture.debugElement.queryAll(By.css('span'));
+    fixture.detectChanges();
+    expect(inputEle[3].nativeElement.textContent).toContain('1554');
+ });
 
 });
