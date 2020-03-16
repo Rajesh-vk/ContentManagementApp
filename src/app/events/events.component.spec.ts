@@ -97,13 +97,13 @@ describe('EventsComponent', () => {
 
  });
 
-    it('Should set the router path correctly', () => {
+    it('Should render the child component with  correct data', () => {
     component.eventSummary$.subscribe();
     const navigateSpy = spyOn(router, 'navigate');
     fixture.detectChanges();
     const gridViewComponent = fixture.debugElement.queryAll(By.directive(GridViewComponent));
-    const button = gridViewComponent[0].queryAll(By.css('btn-renew'));
-    expect(button.length).toEqual(2);
+    const button = gridViewComponent[0].queryAll(By.css('button'));
+    expect(button.length).toEqual(10);
 
 });
 });
