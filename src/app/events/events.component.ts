@@ -28,7 +28,7 @@ export class EventsComponent implements OnInit {
       return EMPTY;
     })
   );
-constructor(private eventService: EventService, private route: ActivatedRoute, private router: Router) { }
+constructor(private eventService: EventService, private router: Router) { }
   ngOnInit() {
   }
 
