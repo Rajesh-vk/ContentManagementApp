@@ -4,6 +4,22 @@ import { HomeComponent } from './home.component';
 import { EventService } from '../events/event.service';
 import { of, Observable } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { Input, Directive } from '@angular/core';
+
+@Directive({
+  selector: '[routerLink]',
+  host : {'(Click)': 'onClick()'}
+
+})
+export class RouterLinkDirectiveStub {
+@Input('routerLink') linkParams: any;
+navigateTo: any;
+
+onClick() {
+
+  this.navigateTo = this.linkParams;
+}
+}
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -13,7 +29,7 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     mockService = jasmine.createSpyObj(['eventsSummary$']);
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
+      declarations: [ HomeComponent, RouterLinkDirectiveStub ],
       providers: [{provide: EventService, useValue: mockService }]
     })
     .compileComponents();
@@ -83,5 +99,17 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
     expect(inputEle[3].nativeElement.textContent).toContain('1554');
  });
+
+  it('Should set the router path correctly', () => {
+  fixture.detectChanges();
+  const routerLink = fixture.debugElement
+      .query(By.directive(RouterLinkDirectiveStub))
+      .injector.get(RouterLinkDirectiveStub);
+
+  fixture.debugElement.query(By.css('a')).triggerEventHandler('Click', null);
+
+  expect(routerLink.navigateTo).toEqual(['/event']);
+
+});
 
 });

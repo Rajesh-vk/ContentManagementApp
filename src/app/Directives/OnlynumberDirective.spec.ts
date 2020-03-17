@@ -34,17 +34,20 @@ describe('OnlyNumberDerictive', () => {
         expect(directive).toBeTruthy();
       });
 
-    // it('Focus over elements', () => {
-    //     fixture.detectChanges();
-    //     // const directive = new OnlynumberDirective(elementRef);
-    //     const event = new Event('onInputChange', { bubbles: true });
-    //     // const inputEle = fixture.debugElement.query(By.css('input'));
-    //     inputEl.innerText = '1111';
-    //     spyOn(event, 'stopPropagation');
-    //     inputEl.dispatchEvent(event);
-    //     fixture.detectChanges();
-    //     expect(event.stopPropagation).toHaveBeenCalled();
-    //   });
+    it('Focus over elements', () => {
+        fixture.detectChanges();
+        const directive = new OnlynumberDirective(elementRef);
+        const event = {
+          type: 'onInputChange',
+          stopPropagation() {}
+      };
+        const inputEle = fixture.debugElement.query(By.css('input'));
+        inputEle.nativeElement.value = 'sadsasa';
+        const spy = spyOn(event, 'stopPropagation');
+        inputEle.triggerEventHandler('onInputChange', event);
+        // inputEl.dispatchEvent(event);
+        expect(spy).toBeTruthy();
+      });
 
   });
 
