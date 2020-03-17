@@ -34,7 +34,7 @@ describe('OnlyNumberDerictive', () => {
         expect(directive).toBeTruthy();
       });
 
-    it('Focus over elements', () => {
+    it('should trigger the change Event', () => {
         fixture.detectChanges();
         const directive = new OnlynumberDirective(elementRef);
         const event = {

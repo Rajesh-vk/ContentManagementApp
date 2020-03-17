@@ -100,7 +100,7 @@ describe('HomeComponent', () => {
     expect(inputEle[3].nativeElement.textContent).toContain('1554');
  });
 
-  it('Should set the router path correctly', () => {
+  it('Should set the routerLink  path correctly', () => {
   fixture.detectChanges();
   const routerLink = fixture.debugElement
       .query(By.directive(RouterLinkDirectiveStub))
