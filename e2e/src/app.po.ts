@@ -1,4 +1,5 @@
 import { browser, by, element } from 'protractor';
+import { Input } from '@angular/core';
 
 export class AppPage {
   navigateTo() {
@@ -6,6 +7,18 @@ export class AppPage {
   }
 
   getTitleText() {
-    return element(by.css('app-root h1')).getText() as Promise<string>;
+    return element(by.css('app-root h5')).getText() as Promise<string>;
+  }
+
+  getUserName() {
+    return element(by.id('userNameId'));
+  }
+
+  getPassword() {
+    return element(by.id('passwordId'));
+  }
+
+  getLoginButton() {
+    return element(by.buttonText('Log In'));
   }
 }
