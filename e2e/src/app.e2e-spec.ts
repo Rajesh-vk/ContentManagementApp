@@ -30,18 +30,24 @@ describe('workspace-project App', () => {
 
   it('should click login button and land the dashBoad page', () => {
     loginClick();
+    browser.waitForAngular();
     expect(page.getCardTitleText()).toEqual('DashBoard');
   });
 
   it('should click Add event Menu Link and land the Add event page', () => {
     loginClick();
+    browser.waitForAngular();
     page.getAddEventRouterLink().click();
+    browser.waitForAngular();
     expect(page.getCardTitleText()).toEqual('Add event');
   });
 
   it('should click Add event button wiil add new event', () => {
     loginClick();
-    page.getAddEventRouterLink().click();
+    // page.getAddEventRouterLink().click();
+    // browser.waitForAngular();
+    browser.get('http://localhost:4200/event/0/edit')
+    browser.waitForAngular();
     page.geteventNameId().sendKeys('event10');
     page.geteventDescriptionId().sendKeys('event desc');
     page.getbaseLocationId().sendKeys('India');
@@ -49,15 +55,18 @@ describe('workspace-project App', () => {
     page.getvenueAddressId().sendKeys('chennai');
 
     page.getVolunteersRouterLink().click();
-
+    browser.waitForAngular();
     page.gettotalNoVolunteersId().sendKeys('10');
     page.gettotalVolunteHoursId().sendKeys('10');
     page.gettotalTravelHoursId().sendKeys('10');
     page.getlivesImpactedId().sendKeys('10');
 
     page.AddEvent().click();
-
+    browser.waitForAngular();
+    browser.get('http://localhost:4200/event')
+    browser.waitForAngular();
     expect(page.getCardTitleText()).toEqual('Events');
+    
   });
 
   afterEach(async () => {

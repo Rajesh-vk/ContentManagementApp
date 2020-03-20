@@ -23,15 +23,15 @@ export class AppPage {
   }
 
   getCardTitleText() {
-    return element(by.css('card-header h5')).getText() as Promise<string>;
+    return element(by.className('card-title')).getText() as Promise<string>;
   }
 
   getAddEventRouterLink() {
-    return element(by.css('[routerLink]="/event/0/edit"'));
+    return element(by. className('nav-link add'));
   }
 
   getVolunteersRouterLink() {
-    return element(by.css('[routerLink]="volundeers"'));
+    return element(by.className('volunteers'));
   }
 
 
@@ -80,7 +80,7 @@ export class AppPage {
   }
 
   getSelectedEvent() {
-    return element(by.css('app-grid-list btn-renew'));
+    return element(by.className('btn-renew'));
   }
 
 }
