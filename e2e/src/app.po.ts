@@ -21,4 +21,66 @@ export class AppPage {
   getLoginButton() {
     return element(by.buttonText('Log In'));
   }
+
+  getCardTitleText() {
+    return element(by.css('card-header h5')).getText() as Promise<string>;
+  }
+
+  getAddEventRouterLink() {
+    return element(by.css('[routerLink]="/event/0/edit"'));
+  }
+
+  getVolunteersRouterLink() {
+    return element(by.css('[routerLink]="volundeers"'));
+  }
+
+
+  geteventNameId() {
+    return element(by.id('eventNameId'));
+  }
+
+  geteventDescriptionId() {
+    return element(by.id('eventDescriptionId'));
+  }
+
+  getbaseLocationId() {
+    return element(by.id('baseLocationId'));
+  }
+
+  getbeneficiaryNameId() {
+    return element(by.id('beneficiaryNameId'));
+  }
+
+  getvenueAddressId() {
+    return element(by.id('venueAddressId'));
+  }
+
+  gettotalNoVolunteersId() {
+    return element(by.id('totalNoVolunteersId'));
+  }
+
+  gettotalVolunteHoursId() {
+    return element(by.id('totalVolunteHoursId'));
+  }
+
+  gettotalTravelHoursId() {
+    return element(by.id('totalTravelHoursId'));
+  }
+
+  getlivesImpactedId() {
+    return element(by.id('livesImpactedId'));
+  }
+
+  AddEvent() {
+    return element(by.buttonText('Save'));
+  }
+
+  EditEvent() {
+    return element(by.buttonText('Edit'));
+  }
+
+  getSelectedEvent() {
+    return element(by.css('app-grid-list btn-renew'));
+  }
+
 }
