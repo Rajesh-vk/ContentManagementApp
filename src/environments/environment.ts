@@ -8,7 +8,7 @@ export const environment = {
   authApiRegisterUrl: 'http://localhost:1581/api/user',
   baseApiUrl: 'http://localhost:1581/api/',
   eventApiUrl: 'events/event/',
-  userApiUrl: 'user/'
+  userApiUrl: 'user'
 };
 
 /*

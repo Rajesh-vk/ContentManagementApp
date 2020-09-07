@@ -40,15 +40,8 @@ export class ReportService {
 
   createUser(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    let userWithoutId = {
-      userName: user.userName,
-    password: user.password,
-    emailId: user.emailId,
-    userRoleId: 3
-
-   };
-    console.log('createuser: ' + JSON.stringify(userWithoutId));
-    return this.httpUrl.post<User>(this.registerUrl, userWithoutId, { headers })
+    delete user.id;
+    return this.httpUrl.post<User>(this.registerUrl, user, { headers })
       .pipe(
         tap(data => console.log('createuser: ' + JSON.stringify(data))),
         catchError(this.handleError)
@@ -68,6 +61,8 @@ export class ReportService {
   updateUser(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.userUrl}/${user.id}`;
+    delete user.id;
+    delete user.password;
     return this.httpUrl.put<User>(url, user, { headers })
       .pipe(
         tap(() => console.log('updateUser: ' + user.id)),
