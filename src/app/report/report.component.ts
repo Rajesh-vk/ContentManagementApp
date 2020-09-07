@@ -21,11 +21,10 @@ export class ReportComponent implements OnInit {
 
   onSubmit() {
     this.currentUser = {
-    id: this.model.userName,
+      id: null,
     userName: this.model.userName,
     password: this.model.password,
     emailId: this.model.email,
-    token: null,
     userRoleId: 1
     };
     this.reportService.createUser(this.currentUser).pipe(first())

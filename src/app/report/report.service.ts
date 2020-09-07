@@ -40,9 +40,15 @@ export class ReportService {
 
   createUser(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const d: Date = new Date();
-    user.userRoleId = 1;
-    return this.httpUrl.post<User>(this.registerUrl, user, { headers })
+    let userWithoutId = {
+      userName: user.userName,
+    password: user.password,
+    emailId: user.emailId,
+    userRoleId: 3
+
+   };
+    console.log('createuser: ' + JSON.stringify(userWithoutId));
+    return this.httpUrl.post<User>(this.registerUrl, userWithoutId, { headers })
       .pipe(
         tap(data => console.log('createuser: ' + JSON.stringify(data))),
         catchError(this.handleError)
