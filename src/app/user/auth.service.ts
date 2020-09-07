@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { User } from '../Model/User';
+import { AuthModel } from '../Model/authModel';
 import { map } from 'rxjs/internal/operators/map';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  currentUser: User;
+  currentUser: AuthModel;
   redirectUrl: string;
 
   loadingSubject = new BehaviorSubject<boolean>(false);

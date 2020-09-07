@@ -41,7 +41,6 @@ export class ReportService {
   createUser(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const d: Date = new Date();
-    user.id = 'USR2020' +  d.getTime().toString();
     user.userRoleId = 1;
     return this.httpUrl.post<User>(this.registerUrl, user, { headers })
       .pipe(
